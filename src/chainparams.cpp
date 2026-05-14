@@ -79,8 +79,8 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].nTimeout = Consensus::BIP9Deployment::NO_TIMEOUT;
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].min_activation_height = 0;
 
-        consensus.nMinimumChainWork = uint256{};
-        consensus.defaultAssumeValid = uint256{};
+        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000000000016faeaf337e1");
+        consensus.defaultAssumeValid = uint256S("0x91f354626035ec694be91ebfaf1f5006ea51380e14d354562b6eee8a92dcb3b7");
 
         pchMessageStart[0] = 0x4c;
         pchMessageStart[1] = 0x50;
@@ -119,13 +119,17 @@ public:
         m_is_mockable_chain = false;
 
         checkpointData = {
-            {}
+            {
+                {  10000, uint256S("0x9f514fd35098efcc25a59bc00c2f1efa852a1fb91a6e5b98c132e69b263517d3")},
+                {  50000, uint256S("0x552dcd6f2ee5600626a162ee9874997d4dc6f0d90639f5d8cf3093070ba91f2a")},
+                { 110900, uint256S("0x91f354626035ec694be91ebfaf1f5006ea51380e14d354562b6eee8a92dcb3b7")},
+            }
         };
 
         chainTxData = ChainTxData{
-            0,
-            0,
-            0,
+            1778646481,
+            232066,
+            0.02787609667095484,
         };
     }
 };
