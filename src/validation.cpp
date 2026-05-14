@@ -3680,19 +3680,28 @@ bool BlockManager::AcceptBlockHeader(const CBlockHeader& block, BlockValidationS
             return true;
         }
 
-        if (!CheckBlockHeader(block, state, chainparams.GetConsensus())) {
+        CBlockIndex* pindexPrev = nullptr;
+        BlockMap::iterator mi = m_block_index.find(block.hashPrevBlock);
+        bool fSkipPoW = false;
+        if (mi != m_block_index.end()) {
+            pindexPrev = (*mi).second;
+            if (fCheckpointsEnabled) {
+                const MapCheckpoints& checkpoints = chainparams.Checkpoints().mapCheckpoints;
+                if (!checkpoints.empty() && pindexPrev->nHeight + 1 <= checkpoints.rbegin()->first) {
+                    fSkipPoW = true;
+                }
+            }
+        }
+
+        if (!CheckBlockHeader(block, state, chainparams.GetConsensus(), !fSkipPoW)) {
             LogPrint(BCLog::VALIDATION, "%s: Consensus::CheckBlockHeader: %s, %s\n", __func__, hash.ToString(), state.ToString());
             return false;
         }
 
-        // Get prev block index
-        CBlockIndex* pindexPrev = nullptr;
-        BlockMap::iterator mi = m_block_index.find(block.hashPrevBlock);
         if (mi == m_block_index.end()) {
             LogPrintf("ERROR: %s: prev block not found\n", __func__);
             return state.Invalid(BlockValidationResult::BLOCK_MISSING_PREV, "prev-blk-not-found");
         }
-        pindexPrev = (*mi).second;
         if (pindexPrev->nStatus & BLOCK_FAILED_MASK) {
             LogPrintf("ERROR: %s: prev block invalid\n", __func__);
             return state.Invalid(BlockValidationResult::BLOCK_INVALID_PREV, "bad-prevblk");
