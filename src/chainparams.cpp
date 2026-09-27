@@ -79,8 +79,8 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].nTimeout = Consensus::BIP9Deployment::NO_TIMEOUT;
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].min_activation_height = 0;
 
-        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000000000016faeaf337e1");
-        consensus.defaultAssumeValid = uint256S("0x91f354626035ec694be91ebfaf1f5006ea51380e14d354562b6eee8a92dcb3b7");
+        consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000000000000000001ad8145130dd");
+        consensus.defaultAssumeValid = uint256S("0x0e2a600a0b52c5b54834e4f025d4cdf15b16e435f581ea3482e4173d95fb3d8b");
 
         pchMessageStart[0] = 0x4c;
         pchMessageStart[1] = 0x50;
@@ -104,6 +104,8 @@ public:
         vSeeds.emplace_back("104.223.108.206");
         vSeeds.emplace_back("seed6.luckypepe.org");
         vSeeds.emplace_back("72.11.140.204");
+        vSeeds.emplace_back("23.94.49.228");
+        vSeeds.emplace_back("23.94.86.189");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,48);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,50);
@@ -123,13 +125,15 @@ public:
                 {  10000, uint256S("0x9f514fd35098efcc25a59bc00c2f1efa852a1fb91a6e5b98c132e69b263517d3")},
                 {  50000, uint256S("0x552dcd6f2ee5600626a162ee9874997d4dc6f0d90639f5d8cf3093070ba91f2a")},
                 { 110900, uint256S("0x91f354626035ec694be91ebfaf1f5006ea51380e14d354562b6eee8a92dcb3b7")},
+                { 262801, uint256S("0x0b889ae3df33e4224a089c94e4edec474177b31590ce6bc498371a6cea575bea")},
+                { 290000, uint256S("0x0e2a600a0b52c5b54834e4f025d4cdf15b16e435f581ea3482e4173d95fb3d8b")},
             }
         };
 
         chainTxData = ChainTxData{
-            1778646481,
-            232066,
-            0.02787609667095484,
+            1790135521,
+            482425,
+            0.02022153048044988,
         };
     }
 };
